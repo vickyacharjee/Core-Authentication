@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+</head>
+<body>
+    <style>
+        h1{
+            text-align: center;
+            font-family: sans-serif;
+            border: 2px solid rgb(32, 26, 26);
+            background-color: #212121;
+            color: wheat;
+        }
+        .box{
+            border: 2px solid black;
+            text-align: center;
+        }
+        .upper-box{
+            text-align: center;
+            font-size: 20px;
+        }
+        .upper-box button{
+            color: wheat;
+            background-color: #212121;
+            border: 2px solid black;
+        }
+        .Analytics{
+            border: 2px solid black;
+            text-decoration: none;
+            color: #212121;
+            padding: 4px;
+            background-color: wheat;
+        }
+        thead{
+            text-decoration: underline;
+        }
+    </style>
+
+<h1>URL-Shortner</h1>
+
+<% if(locals.id){ %>
+   <h3>  &nbsp;&nbsp;URL Generated:  http://localhost:8002/url/<b><%= id %></b>&nbsp;  <a class="Analytics" href="http://localhost:8002"> Analytics DashBoard</a></h3>
+<% }  %>
+
+<div class="upper-box">
+    <form method="POST" action="/url">
+        <label for="">Enter your URL </label>
+        <input name="url" type="text" placeholder="Place Ur URL here..">
+        <button type="submit" >Generate</button>
+      
+        
+       
+    </form>
+</div><br>
+
+<div class="box">
+    <% if (locals.urls){ %>
+     <table>
+        <thead>
+            <th>Serial-No.</th>
+            <th>Short-ID</th>
+            <th>Redirect</th>
+            <th>Clicks</th>
+            
+        </thead>
+
+        <tbody>
+            <% urls.forEach((url,index)=>{ %>
+                <tr>
+             <td><%= index+1 %></td>
+             <td><b><%= url.shortId %></b></td>
+             <td><%= url.redirectUrl %></td>
+             <td><%= url.visitHistory.length %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+     </table>
+    <% } %>
+</div>
+
+</body>
+</html>

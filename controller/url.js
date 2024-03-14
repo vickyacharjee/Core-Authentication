@@ -1,4 +1,4 @@
-//importing nanoid 
+//importing shortId 
 const shortid=require('shortid');
 //importing Db Schema
 const URL=require('../model/url');
@@ -6,7 +6,7 @@ const URL=require('../model/url');
 
 async function handlegGenerateNewShortUrl(req,res){
 const body=req.body;
-if(!body.url) return res.status(400).json({msg:"Enter valid url"})
+if(!body.url) return res.status(400).end('<h1>Enter Valid URL<h1><a class="Analytics" href="http://localhost:8002"> Click to start again</a>')
 const shortID=shortid();
 
 await URL.create({
@@ -14,7 +14,10 @@ await URL.create({
     redirectUrl:body.url,
     visitHistory:[],
 })
-  return res.json({id:shortID});
+  // return res.json({ id:shortID});
+  return res.render('home',{
+    id:shortID,
+  })
 }
 
 async function handleGetAnalytics(req,res){
